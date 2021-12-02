@@ -1,0 +1,12 @@
+G:\智能电控\智能橱柜\嵌入式系统\上位机调试工具\智厨主控调试工具\SmartKitchen\bin\Debug\SmartKitchen.exe.config
+G:\智能电控\智能橱柜\嵌入式系统\上位机调试工具\智厨主控调试工具\SmartKitchen\bin\Debug\SmartKitchen.exe
+G:\智能电控\智能橱柜\嵌入式系统\上位机调试工具\智厨主控调试工具\SmartKitchen\bin\Debug\SmartKitchen.pdb
+G:\智能电控\智能橱柜\嵌入式系统\上位机调试工具\智厨主控调试工具\SmartKitchen\obj\Debug\SmartKitchen.Form1.resources
+G:\智能电控\智能橱柜\嵌入式系统\上位机调试工具\智厨主控调试工具\SmartKitchen\obj\Debug\SmartKitchen.Properties.Resources.resources
+G:\智能电控\智能橱柜\嵌入式系统\上位机调试工具\智厨主控调试工具\SmartKitchen\obj\Debug\SmartKitchen.csproj.GenerateResource.cache
+G:\智能电控\智能橱柜\嵌入式系统\上位机调试工具\智厨主控调试工具\SmartKitchen\obj\Debug\SmartKitchen.exe
+G:\智能电控\智能橱柜\嵌入式系统\上位机调试工具\智厨主控调试工具\SmartKitchen\obj\Debug\SmartKitchen.pdb
+G:\智能电控\智能橱柜\嵌入式系统\上位机调试工具\智厨主控调试工具\SmartKitchen\bin\Debug\SmartKitchen.exe.manifest
+G:\智能电控\智能橱柜\嵌入式系统\上位机调试工具\智厨主控调试工具\SmartKitchen\bin\Debug\SmartKitchen.application
+G:\智能电控\智能橱柜\嵌入式系统\上位机调试工具\智厨主控调试工具\SmartKitchen\obj\Debug\SmartKitchen.exe.manifest
+G:\智能电控\智能橱柜\嵌入式系统\上位机调试工具\智厨主控调试工具\SmartKitchen\obj\Debug\SmartKitchen.application
