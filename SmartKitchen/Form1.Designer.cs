@@ -41,6 +41,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_OTA = new System.Windows.Forms.TabPage();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -177,11 +180,14 @@
             this.tabControl1.Location = new System.Drawing.Point(243, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(911, 589);
+            this.tabControl1.Size = new System.Drawing.Size(903, 589);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage_OTA
             // 
+            this.tabPage_OTA.Controls.Add(this.label12);
+            this.tabPage_OTA.Controls.Add(this.textBox5);
+            this.tabPage_OTA.Controls.Add(this.label11);
             this.tabPage_OTA.Controls.Add(this.label10);
             this.tabPage_OTA.Controls.Add(this.textBox4);
             this.tabPage_OTA.Controls.Add(this.label9);
@@ -201,10 +207,35 @@
             this.tabPage_OTA.Location = new System.Drawing.Point(4, 25);
             this.tabPage_OTA.Name = "tabPage_OTA";
             this.tabPage_OTA.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_OTA.Size = new System.Drawing.Size(903, 560);
+            this.tabPage_OTA.Size = new System.Drawing.Size(895, 560);
             this.tabPage_OTA.TabIndex = 0;
             this.tabPage_OTA.Text = "OTA";
             this.tabPage_OTA.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(497, 224);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(85, 19);
+            this.label12.TabIndex = 24;
+            this.label12.Text = "用时：0s";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(89, 44);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(101, 25);
+            this.textBox5.TabIndex = 23;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(18, 49);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(52, 15);
+            this.label11.TabIndex = 22;
+            this.label11.Text = "帧头：";
             // 
             // label10
             // 
@@ -272,7 +303,7 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(541, 50);
+            this.textBox3.Location = new System.Drawing.Point(788, 50);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(92, 25);
             this.textBox3.TabIndex = 14;
@@ -280,7 +311,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(463, 53);
+            this.label6.Location = new System.Drawing.Point(700, 53);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(82, 15);
             this.label6.TabIndex = 13;
@@ -288,7 +319,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(330, 50);
+            this.textBox2.Location = new System.Drawing.Point(567, 50);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(101, 25);
             this.textBox2.TabIndex = 12;
@@ -296,7 +327,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(242, 55);
+            this.label5.Location = new System.Drawing.Point(479, 55);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(82, 15);
             this.label5.TabIndex = 11;
@@ -332,7 +363,7 @@
             // label_OTATarget
             // 
             this.label_OTATarget.AutoSize = true;
-            this.label_OTATarget.Location = new System.Drawing.Point(27, 50);
+            this.label_OTATarget.Location = new System.Drawing.Point(264, 50);
             this.label_OTATarget.Name = "label_OTATarget";
             this.label_OTATarget.Size = new System.Drawing.Size(67, 15);
             this.label_OTATarget.TabIndex = 3;
@@ -349,7 +380,7 @@
             "冰箱",
             "主控板",
             "电源板"});
-            this.comboBox3.Location = new System.Drawing.Point(100, 47);
+            this.comboBox3.Location = new System.Drawing.Point(337, 47);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(117, 23);
             this.comboBox3.TabIndex = 2;
@@ -359,7 +390,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(903, 560);
+            this.tabPage2.Size = new System.Drawing.Size(895, 560);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "功能区";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -368,7 +399,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1166, 632);
+            this.ClientSize = new System.Drawing.Size(1155, 642);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.GroupBoxSerialOperate);
             this.Name = "Form1";
@@ -413,6 +444,9 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
     }
 }
 

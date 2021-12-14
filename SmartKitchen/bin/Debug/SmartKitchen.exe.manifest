@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SmartKitchen.exe" size="20896">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SmartKitchen.exe" size="21920">
       <assemblyIdentity name="SmartKitchen" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>9Whm78DnVmgELFeDWgWsEOJ4D3IR3DeLjhAxVdhEo8k=</dsig:DigestValue>
+        <dsig:DigestValue>dkqnDFNUGIZnAv2cEoi4VCdmv63wVoaSw3qWWKjY9+g=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

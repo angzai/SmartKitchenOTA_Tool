@@ -10,16 +10,19 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
 using System.IO;
+using System.Diagnostics;
 
 namespace SmartKitchen
 {
     public partial class Form1 : Form
     {
         public static SerialPort sp = new SerialPort();
+        Stopwatch timeConsuming = new Stopwatch();
         string fileName;    //需要升级的文件名字 包含了绝对路径
         byte[] HexFile;         //读取出来的hex文件
         byte[] OTA_Data= new byte[65535];          //经过填充后的升级数据文件
         byte address;
+        byte frameHeader;
         ushort flashAddress;
         byte hardware;
         byte firmware;
@@ -196,6 +199,8 @@ namespace SmartKitchen
         {
             try
             {
+                frameHeader= Convert.ToByte(textBox5.Text);
+
                 if (comboBox3.SelectedItem.Equals("微波炉"))
                 {
                     address = 0x01;
@@ -236,6 +241,9 @@ namespace SmartKitchen
                     }
                 }
 
+                timeConsuming.Start();
+                Thread thread1 = new Thread(TimeCunsuming);
+                thread1.Start();//启动新线程
 
                 Thread thread = new Thread(Start_OTA);
                 thread.Start();//启动新线程
@@ -251,6 +259,7 @@ namespace SmartKitchen
             byte[] CMD_Byte = { 0xFE, 0x0E, 0x00,0x01,0x00,0x05,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
             try
             {
+                CMD_Byte[0] = Convert.ToByte(frameHeader);
                 CMD_Byte[2] = address;
 
                 CMD_Byte[6] = Convert.ToByte(Convert.ToUInt16(frameNum*128) >> 8);
@@ -283,10 +292,10 @@ namespace SmartKitchen
                     sp.DiscardInBuffer();
                     sp.Write(CMD_Byte,0, CMD_Byte.Length);
                     textBox4.AppendText("发送升级准备请求\r\n");
-                    System.Threading.Thread.Sleep(800);
+                    System.Threading.Thread.Sleep(1000);
 
                     byte[] a = new byte[20];
-                    sp.Read(a,0,a.Length);
+                    sp.Read(a, 0, a.Length);
                     textBox4.AppendText("接收升级准备响应\r\n");
                     if (a[0]==0xfe)
                     {
@@ -303,8 +312,8 @@ namespace SmartKitchen
                             
                         }
                         else
-                        {
-                            if(a[5] == 0x02)
+                        {                            
+                            if (a[5] == 0x02)
                             {
                                 MessageBox.Show("硬件版本号错误 \r\n");
                                 //textBox4.AppendText("硬件版本号错误 \r\n");
@@ -314,9 +323,19 @@ namespace SmartKitchen
                                 MessageBox.Show("软件已经是最新版本 \r\n");
                                 //textBox4.AppendText("软件已经是最新版本 \r\n");
                             }
-                            
+                            else if(a[5] == 0x04)
+                            {
+                                MessageBox.Show("其他原因不支持升级 \r\n");
+                            }
+                            timeConsuming.Stop();
                             isStop = false;
                         }
+                    }
+                    else
+                    {
+                        textBox4.AppendText("未收到响应帧或者帧头错误，退出升级\r\n");
+                        timeConsuming.Stop();
+                        isStop = false;
                     }
                 }
             }
@@ -333,7 +352,7 @@ namespace SmartKitchen
             ushort i = 0;
             try
             {
-                CMD_Byte[0] = 0xfe;
+                CMD_Byte[0] = Convert.ToByte(frameHeader);
                 CMD_Byte[1] = 0x0e;
                 CMD_Byte[2] = address;
                 CMD_Byte[3] = 0x02;
@@ -357,15 +376,17 @@ namespace SmartKitchen
 
                     sp.DiscardInBuffer();
                     sp.Write(CMD_Byte, 0, CMD_Byte.Length);
-                    System.Threading.Thread.Sleep(800);
+                    textBox4.AppendText("发送帧序号：" + Convert.ToString(i) + "\r\n");
+                    for (byte k = 0; k < CMD_Byte.Length; k++)
+                    {
+                        textBox4.AppendText("0x" + CMD_Byte[k].ToString("X2") + " ");
+                    }
+                    textBox4.AppendText("\r\n");
+                    System.Threading.Thread.Sleep(1000);
+
                     byte[] a = new byte[20];
                     sp.Read(a, 0, a.Length);
-                    textBox4.AppendText("发送帧序号："+ Convert.ToString(i)+"\r\n");
-                    for (byte k=0;k< CMD_Byte.Length; k++)
-                    {
-                        textBox4.AppendText("0x"+CMD_Byte[k].ToString("X2") + " ");
-                    }
-                    textBox4.AppendText( "\r\n");
+
                     if (a[0] == 0xfe)
                     {
                         if (a[5] == 0x01)
@@ -395,9 +416,19 @@ namespace SmartKitchen
                             {
                                 MessageBox.Show("其他原因 \r\n");
                             }
-
+                            else if (a[5] == 0x04)
+                            {
+                                MessageBox.Show("其他原因不支持升级 \r\n");
+                            }
+                            timeConsuming.Stop();
                             isStop = false;
                         }
+                    }
+                    else
+                    {
+                        textBox4.AppendText("未收到响应帧或者帧头错误，退出升级\r\n");
+                        timeConsuming.Stop();
+                        isStop = false;
                     }
                 }
             } 
@@ -410,12 +441,12 @@ namespace SmartKitchen
         {
             byte[] CMD_Byte = new byte[8];
 
-            CMD_Byte[0] = 0xfe;
+            CMD_Byte[0] = Convert.ToByte(frameHeader);
             CMD_Byte[1] = 0x0e;
             CMD_Byte[2] = address;
             CMD_Byte[3] = 0x03;
             CMD_Byte[4] = 0x00;
-            CMD_Byte[5] = 0x00;
+            CMD_Byte[5] = 0x01;
 
             uint crc16 = crc16_modbus(CMD_Byte, 6);
             CMD_Byte[6] = Convert.ToByte(crc16 >> 8);
@@ -426,7 +457,7 @@ namespace SmartKitchen
             {
                 sp.DiscardInBuffer();
                 sp.Write(CMD_Byte, 0, CMD_Byte.Length);
-                System.Threading.Thread.Sleep(800);
+                System.Threading.Thread.Sleep(1000);
 
                 byte[] a = new byte[20];
                 sp.Read(a, 0, a.Length);
@@ -436,6 +467,7 @@ namespace SmartKitchen
                     {
                         textBox4.AppendText("确认完成，固件正在重启 \r\n");
 
+                        timeConsuming.Stop();
                         isStop = false;
                     }
                     else
@@ -448,9 +480,19 @@ namespace SmartKitchen
                         {
                             MessageBox.Show("bin数据长度错误 \r\n");
                         }
-
+                        else if (a[5] == 0x04)
+                        {
+                            MessageBox.Show("其他原因 \r\n");
+                        }
+                        timeConsuming.Stop();
                         isStop = false;
                     }
+                }
+                else
+                {
+                    textBox4.AppendText("未收到响应帧或者帧头错误，退出升级\r\n");
+                    timeConsuming.Stop();
+                    isStop = false;
                 }
             }
         }
@@ -474,6 +516,21 @@ namespace SmartKitchen
                 }
             }
             return crc16;
+        }
+        public void TimeCunsuming()
+        {
+            bool isStop = true;
+            while(isStop)
+            {
+                label12.Text = "用时："+Convert.ToString(timeConsuming.ElapsedTicks / (decimal)Stopwatch.Frequency) + "s";
+                System.Threading.Thread.Sleep(10);
+
+                if (timeConsuming.IsRunning == false)
+                {
+                    isStop = false;
+                }
+            }
+
         }
     }
 }
